@@ -32,5 +32,9 @@
     "reset": "keystone user-password-update --pass ok 5a3dfb5a906b730668487931",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "engines": {
+    "node": "9.3.0",
+    "npm": "5.6.0"
   }
 }
