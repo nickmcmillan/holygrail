@@ -24,11 +24,11 @@
     "redux-logger": "^2.8.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "serve": "react-scripts start",
+    "start": "NODE_ENV=production node server",
     "start:server": "NODE_ENV=development nodemon server",
     "server": "NODE_ENV=development nodemon server",
     "build": "react-scripts build",
-    "reset": "keystone user-password-update --pass ok 5a3dfb5a906b730668487931",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
