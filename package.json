@@ -1,5 +1,5 @@
 {
-  "name": "ssr-create-react-app",
+  "name": "testin-stuff",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start:server": "NODE_ENV=development MONGODB=\"\" nodemon server",
+    "start:server": "NODE_ENV=development nodemon server",
     "server": "NODE_ENV=development nodemon server",
     "build": "react-scripts build",
     "reset": "keystone user-password-update --pass ok 5a3dfb5a906b730668487931",
