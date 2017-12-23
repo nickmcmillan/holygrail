@@ -26,19 +26,16 @@ keystone.init({
   'session': true,
   'auth': true,
   'user model': 'User',
-  'cookie secret': 'ujf8wf983ufp9a83up98fu3apw938fuapw938fuap9w38ufap9w8ufp93aw8yfp9w83yfpaw98ym',
+  'cookie secret': process.env.COOKIE_SECRET,
   'trust proxy': true,
-  
-
   'sass': 'public',
-
 });
 
 
 keystone.set('cloudinary config', { 
-    cloud_name: 'dzroyrypi',
-    api_key: '168598223432289',
-    api_secret: 'W6B7LicQcVFfKHqTkzibR12HV6E',
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_KEY,
+    api_secret: process.env.W6B7LicQcVFfKHqTkzibR12HV6E,
  });
  
  
