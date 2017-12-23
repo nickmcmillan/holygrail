@@ -1,0 +1,7 @@
+.bold{
+  fontWeight: 'bold'
+}
+
+body {
+	border: 20px solid blue;
+}
