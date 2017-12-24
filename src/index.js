@@ -7,7 +7,17 @@ import './index.css'
 import Routes from './routes'
 
 // Let the reducers handle initial state
-const initialState = {}
+if (window.DATA && window.DATA !== '{{data}}') {
+  window.DATA=JSON.parse(window.atob(window.DATA))
+} else {
+  window.DATA = {}
+}
+
+console.log(window.DATA)
+
+const initialState = {
+    pageData: window.DATA
+}
 const store = configureStore(initialState)
 
 ReactDOM.render(

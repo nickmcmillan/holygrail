@@ -38,17 +38,44 @@ module.exports = function universalLoader(req, res, next) {
 
                 q.exec((err, result) => {
 
-                    let store = configureStore({
-                        pageData: result || {}
-                    })
+                    if (result) {
+                        const {slug, title} = result
+                        const {brief, extended} = result.content
 
-                    const ReactApp = renderToString(
-                        <Provider store={store}>
-                            <RouterContext {...renderProps} />
-                        </Provider>
-                    )
-                    const RenderedApp = htmlData.replace('{{SSR}}', ReactApp)
-                    res.send(RenderedApp)
+                        const flattenedResult = {
+                            slug,
+                            title,
+                            brief,
+                            extended
+                        }
+
+                        const store = configureStore({
+                            pageData: flattenedResult || {}
+                        })
+
+                        const ReactApp = renderToString(
+                            <Provider store={store}>
+                                <RouterContext {...renderProps} />
+                            </Provider>
+                        )
+                        const RenderedApp = htmlData.replace('{{SSR}}', ReactApp)
+                            .replace('{{data}}', new Buffer(JSON.stringify(flattenedResult)).toString('base64'))
+                        res.send(RenderedApp)
+                    } else {
+
+                        const store = configureStore()
+                        const ReactApp = renderToString(
+                            <Provider store={store}>
+                                <RouterContext {...renderProps} />
+                            </Provider>
+                        )
+                        const RenderedApp = htmlData.replace('{{SSR}}', ReactApp)
+                        res.send(RenderedApp)
+                    }
+
+
+
+
                 });
 
             } else {

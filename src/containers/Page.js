@@ -22,18 +22,28 @@ class Page extends Component {
 
 	render() {
 
-        const path = this.props.location.pathname
+        //console.log(this.props.pageData);
 
-        //console.log(this.props.routeParams.page);
-
-
+        const {slug, title, brief, extended} = this.props.pageData
 
 		return (
 			<div className="bold">
 				<p>
 					Custom page
 				</p>
-                {JSON.stringify(this.props)}
+                <ul>
+                    <li>slug {slug}</li>
+
+                    <li>title {title}</li>
+
+                    <div dangerouslySetInnerHTML={{ __html: brief }} />
+
+                    <div dangerouslySetInnerHTML={{ __html: extended }} />
+
+                </ul>
+
+
+                <p>{JSON.stringify(this.props)}</p>
 				<p>{'Email: ' + this.props.user.email}</p>
 
 			</div>
