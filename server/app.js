@@ -1,3 +1,4 @@
+require('dotenv').config()
 require('ignore-styles')
 require('babel-register')({ ignore: /\/(build|node_modules)\//, presets: ['react-app'] })
 
@@ -9,18 +10,19 @@ const path = require('path')
 const fs = require('fs')
 const keystone = require('keystone')
 const mongoose = require('mongoose')
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 3000
 
 const app = express()
 
+
 keystone.init({
   'name': 'Ssr-testo',
-  'brand': 'My Site',
+  'brand': 'Holy grail',
 
   'favicon': '../public/favicons/favicon.ico',
   'static': ['public'],
   'auto update': true,
-  
+
   'cors allow origin': true,
   'cors allow methods': 'GET,OPTIONS,POST',
   'session': true,
@@ -31,18 +33,16 @@ keystone.init({
   'sass': 'public',
 });
 
-
-keystone.set('cloudinary config', { 
+keystone.set('cloudinary config', {
     cloud_name: process.env.CLOUDINARY_NAME,
     api_key: process.env.CLOUDINARY_KEY,
-    api_secret: process.env.W6B7LicQcVFfKHqTkzibR12HV6E,
+    api_secret: process.env.CLOUDINARY_SECRET,
  });
- 
- 
+
+
 if (process.env.MONGODB) {
 	keystone.set('mongo', process.env.MONGODB)
 }
-
 
 if (process.env.HOST) {
 	keystone.set('host', process.env.HOST)
@@ -81,10 +81,14 @@ app.use('/', universalLoader)
 
 keystone.import('./models')
 
-
-
+// Configure the navigation bar in Keystone's Admin UI
 keystone.set('nav', {
-	'users': ['User']
+	pages: 'pages', // adding pages to Admin UI nav
+	posts: ['posts', 'post-categories'],
+	galleries: 'galleries',
+	enquiries: 'enquiries',
+	//users: 'users',
+	users: ['User']
 })
 
 keystone.set('app', app)

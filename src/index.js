@@ -10,8 +10,6 @@ import Routes from './routes'
 const initialState = {}
 const store = configureStore(initialState)
 
-console.log('hi');
-
 ReactDOM.render(
   <Provider store={store}>
     <Routes />

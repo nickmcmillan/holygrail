@@ -4,6 +4,5 @@ import FirstPage from './FirstPage'
 
 it('renders without crashing', () => {
   const div = document.createElement('div')
-  ReactDOM.render(<Firstpage />, div)
+  ReactDOM.render(<FirstPage />, div)
 })
-
