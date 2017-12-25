@@ -16,7 +16,7 @@ if (window.DATA && window.DATA !== '{{data}}') {
 console.log(window.DATA)
 
 const initialState = {
-    pageData: window.DATA
+    ...window.DATA
 }
 const store = configureStore(initialState)
 

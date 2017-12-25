@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 
 import user from './user'
-import pageData from './pageData'
+import contentPages from './contentPages'
 
 export default combineReducers({
   user,
-  pageData
+  contentPages,
 })

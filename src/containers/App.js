@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as userActions from '../actions/user'
 import { Link } from 'react-router'
 
 const thing = []
 
-export default class App extends Component {
+class App extends Component {
     constructor(props) {
         super(props)
 
@@ -13,11 +16,11 @@ export default class App extends Component {
       <div>
         <h1>hello</h1>
         <ul>
-            {thing.map(item => {
+            {this.props.contentPages.map(item => {
                 return (
-                    <li>
-                        <Link to={'/'}>
-                            um
+                    <li key={item._id}>
+                        <Link to={item.slug}>
+                            {item.title}
                         </Link>
                     </li>
                 )
@@ -28,3 +31,17 @@ export default class App extends Component {
     )
   }
 }
+
+
+const mapStateToProps = state => ({
+  contentPages: state.contentPages
+})
+
+const mapDispatchToProps = dispatch => ({
+  userActions: bindActionCreators(userActions, dispatch)
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)

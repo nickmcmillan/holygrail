@@ -16,44 +16,60 @@ const app = express()
 
 
 keystone.init({
-  'name': 'Ssr-testo',
-  'brand': 'Holy grail',
+    'name': 'Admin', // The name of the KeystoneJS application
+    'brand': 'Holy grail', // Displayed in the top left hand corner of the Admin UI
 
-  'favicon': '../public/favicons/favicon.ico',
-  'static': ['public'],
-  'auto update': true,
+    'favicon': '../public/favicons/favicon.ico',
+    'static': ['public'],
+    'auto update': true,
 
-  'cors allow origin': true,
-  'cors allow methods': 'GET,OPTIONS,POST',
-  'session': true,
-  'auth': true,
-  'user model': 'User',
-  'cookie secret': process.env.COOKIE_SECRET,
-  'trust proxy': true,
-  'sass': 'public',
+    'cors allow origin': true,
+    'cors allow methods': 'GET,OPTIONS,POST',
+    'session': false, //
+    //'cookie secret': process.env.COOKIE_SECRET,
+    'session store': 'mongo',
+    'auth': true,
+    'user model': 'User', // obviously must match the name set up in the models
+    'trust proxy': true,
+    //'sass': 'public',
+
+    'compress': true,
+    //'wysiwyg additional plugins': 'paste',
+    // 'wysiwyg additional options': {
+    //     content_css: '../build/admin.css'
+    //     //'paste_data_images': true,
+    //     //'image_list' : '/images',
+    // },
+    //'wysiwyg images': true,
+    'wysiwyg cloudinary images': true,
+    'wysiwyg importcss': '/admin.css',
+    //'wysiwyg additional buttons': 'image',
+
+    // 'wysiwyg additional plugins': 'image',
+    // 'wysiwyg additional buttons': 'image',
 });
 
 keystone.set('cloudinary config', {
     cloud_name: process.env.CLOUDINARY_NAME,
     api_key: process.env.CLOUDINARY_KEY,
     api_secret: process.env.CLOUDINARY_SECRET,
- });
+});
 
 
 if (process.env.MONGODB) {
-	keystone.set('mongo', process.env.MONGODB)
+    keystone.set('mongo', process.env.MONGODB) // The url for your MongoDB connection
 }
 
 if (process.env.HOST) {
-	keystone.set('host', process.env.HOST)
+    keystone.set('host', process.env.HOST)
 }
 
 if (process.env.PORT) {
-	keystone.set('port', PORT)
+    keystone.set('port', PORT)
 }
 
 if (process.env.SOCKET) {
-	keystone.set('unix socket', process.env.SOCKET)
+    keystone.set('unix socket', process.env.SOCKET)
 }
 
 // Support Gzip
@@ -83,12 +99,12 @@ keystone.import('./models')
 
 // Configure the navigation bar in Keystone's Admin UI
 keystone.set('nav', {
-	pages: 'pages', // adding pages to Admin UI nav
-	posts: ['posts', 'post-categories'],
-	galleries: 'galleries',
-	enquiries: 'enquiries',
-	//users: 'users',
-	users: ['User']
+    pages: 'pages', // adding pages to Admin UI nav
+    posts: ['posts', 'post-categories'],
+    galleries: 'galleries',
+    enquiries: 'enquiries',
+    users: 'users',
+    //users: ['User']
 })
 
 keystone.set('app', app)
