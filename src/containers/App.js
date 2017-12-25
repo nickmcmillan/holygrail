@@ -4,34 +4,31 @@ import { bindActionCreators } from 'redux'
 import * as userActions from '../actions/user'
 import { Link } from 'react-router'
 
-const thing = []
-
 class App extends Component {
-    constructor(props) {
-        super(props)
+  // constructor(props) {
+  //   super(props)
+  // }
 
-    }
-  render(){
+  render() {
     return (
-      <div>
+      <React.Fragment>
         <h1>hello</h1>
-        <ul>
-            {this.props.contentPages.map(item => {
-                return (
-                    <li key={item._id}>
-                        <Link to={item.slug}>
-                            {item.title}
-                        </Link>
-                    </li>
-                )
-            })}
-        </ul>
+        <nav>
+          <ul>
+            {this.props.contentPages.map(item =>
+              <li key={item._id}>
+                <Link to={item.slug}>
+                  {item.title}
+                </Link>
+              </li>
+            )}
+          </ul>
+        </nav>
         {this.props.children}
-      </div>
+      </React.Fragment>
     )
   }
 }
-
 
 const mapStateToProps = state => ({
   contentPages: state.contentPages
