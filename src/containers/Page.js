@@ -28,13 +28,19 @@ class Page extends Component {
     }
 
     render() {
+        
+        const currentTopLevelPage = this.props.contentPages
+            .find(page => page.slug === this.props.match.params.topLevel)
+        
+        // if a top level page data exists, then snoop through it for second level page data
+        const currentSecondLevelPage = currentTopLevelPage && currentTopLevelPage.secondLevelPages
+            .find(page => page.slug === this.props.match.params.secondLevel)
 
-        // sift through all of the pages and find the one we're currently viewing.
-        const currentPage = this.props.contentPages
-        // make sure we use this.props.location - not window.location,
-        // because this component is rendered on the server too!
-        .find(page => page.slug === this.props.location.pathname.replace(/^\/|\/$/g, ''))
-
+        // determine if we're currently on a top level page
+        const isTopLevel = !this.props.match.params.secondLevel
+        // and based on that use it, or otherwise use child data
+        const currentPage = isTopLevel ? currentTopLevelPage : currentSecondLevelPage
+        
         if (!currentPage) {
             return this.renderNotFound()
         }
@@ -43,10 +49,10 @@ class Page extends Component {
         const {brief, extended} = currentPage.content
 
         return (
-            <div className="bold">
-                <p>
-                    Custom page
-                </p>
+            <div>
+                <h2>Page.js</h2>
+                <h3>{isTopLevel ? 'first' : 'second'}</h3>
+                
                 <ul>
                     {/* <li>id {_id}</li> */}
                     <li>slug {slug}</li>
@@ -57,7 +63,7 @@ class Page extends Component {
                 </ul>
 
 
-                <p>{JSON.stringify(this.props)}</p>
+                {/* <p>{JSON.stringify(this.props)}</p> */}
                 <p>{'Email: ' + this.props.user.email}</p>
 
             </div>

@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as userActions from '../actions/user'
-import { Link } from 'react-router'
+import { Switch, Route } from 'react-router-dom'
 
-class App extends Component {
+import FirstPage from './FirstPage'
+import SecondPage from './SecondPage'
+import Page from './Page'
+
+import NoMatch from '../components/NoMatch'
+import Nav from '../components/Nav'
+
+
+export default class App extends Component {
   // constructor(props) {
   //   super(props)
   // }
@@ -12,33 +17,20 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <h1>hello</h1>
-        <nav>
-          <ul>
-            {this.props.contentPages.map(item =>
-              <li key={item._id}>
-                <Link to={item.slug}>
-                  {item.title}
-                </Link>
-              </li>
-            )}
-          </ul>
-        </nav>
-        {this.props.children}
+        <h1>hello3</h1>
+        
+        <Nav />
+        
+        <Switch>
+          <Route exact path="/" component={FirstPage}/>
+          {/* Hardcoded routes */}
+          <Route exact path="/second" component={SecondPage}/>
+          {/* custom page routes. the second level is optional (?) */}
+          <Route exact path="/:topLevel/:secondLevel?" component={Page} />
+
+          <Route component={NoMatch}/>
+        </Switch>
       </React.Fragment>
     )
   }
 }
-
-const mapStateToProps = state => ({
-  contentPages: state.contentPages
-})
-
-const mapDispatchToProps = dispatch => ({
-  userActions: bindActionCreators(userActions, dispatch)
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App)

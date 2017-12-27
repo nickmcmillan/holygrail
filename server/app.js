@@ -16,8 +16,8 @@ const app = express()
 
 
 keystone.init({
-    'name': 'Admin', // The name of the KeystoneJS application
-    'brand': 'Holy grail', // Displayed in the top left hand corner of the Admin UI
+    'name': 'Admin3', // The name of the KeystoneJS application
+    'brand': 'Holy grail3', // Displayed in the top left hand corner of the Admin UI
 
     'favicon': '../public/favicons/favicon.ico',
     'static': ['public'],
@@ -47,7 +47,7 @@ keystone.init({
 
     // 'wysiwyg additional plugins': 'image',
     // 'wysiwyg additional buttons': 'image',
-});
+})
 
 keystone.set('cloudinary config', {
     cloud_name: process.env.CLOUDINARY_NAME,
@@ -99,13 +99,14 @@ keystone.import('./models')
 
 // Configure the navigation bar in Keystone's Admin UI
 keystone.set('nav', {
-    pages: 'pages', // adding pages to Admin UI nav
-    posts: ['posts', 'post-categories'],
+    pages: ['pages', 'PageSecondLevel'], // adding pages to Admin UI nav
+    posts: ['posts', 'PostCategory'],
     galleries: 'galleries',
     enquiries: 'enquiries',
     users: 'users',
-    //users: ['User']
 })
+
+
 
 keystone.set('app', app)
 
