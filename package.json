@@ -26,7 +26,7 @@
   },
   "scripts": {
     "react": "react-scripts start",
-    "start": "NODE_ENV=production node --optimize_for_size --max_old_space_size=460 --gc_interval=100 server",
+    "start": "react-scripts build && NODE_ENV=production node --optimize_for_size --max_old_space_size=460 --gc_interval=100 server",
     "start:server": "react-scripts build && NODE_ENV=development nodemon server",
     "server": "NODE_ENV=development nodemon server",
     "build": "react-scripts build",
