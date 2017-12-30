@@ -7,6 +7,6 @@ https://github.com/JEGardner/ssr-keystonejs-create-react-app
 
 - Create React App
 - Redux
-- React Router
+- React Router v4
 - Server side rendering
-- Keystone CMS
+- Keystone CMS v4.0.0-beta.1 (locked because newer betas break Cloudinary wysiwyg integration)
