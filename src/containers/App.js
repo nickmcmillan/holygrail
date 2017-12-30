@@ -9,7 +9,6 @@ import Page from './Page'
 import NoMatch from '../components/NoMatch'
 import Nav from '../components/Nav'
 
-
 export default class App extends Component {
   // constructor(props) {
   //   super(props)
@@ -23,22 +22,21 @@ export default class App extends Component {
         <Nav />
 
         <Switch>
-          <Route exact path="/" component={FirstPage}/>
+          <Route exact path="/" component={FirstPage} />
           {/* Hardcoded routes */}
-          <Route exact path="/second" component={SecondPage}/>
-          <Route exact path="/dashboard" component={Dashboard}/>
-          <Route exact path="/chip" render={() => (
-            true ? (
-              <Redirect to="/dashboard"/>
-            ) : (
-              <p>public homepage</p>
-            )
-          )}/>
+          <Route exact path="/second" component={SecondPage} />
+          <Route exact path="/dashboard" component={Dashboard} />
+          <Route
+            exact
+            path="/chip"
+            render={() =>
+              true ? <Redirect to="/dashboard" /> : <p>public homepage</p>
+            }
+          />
           {/* custom page routes. the second level is optional (?) */}
           <Route exact path="/:topLevel/:secondLevel?" component={Page} />
 
-
-          <Route component={NoMatch}/>
+          <Route component={NoMatch} />
         </Switch>
       </React.Fragment>
     )

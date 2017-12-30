@@ -7,11 +7,8 @@ import App from '../src/containers/App'
 export default (req, store, context) => {
   return renderToString(
     <Provider store={store}>
-      <StaticRouter
-        location={req.url}
-        context={context}
-      >
-        <App/>
+      <StaticRouter location={req.url} context={context}>
+        <App />
       </StaticRouter>
     </Provider>
   )

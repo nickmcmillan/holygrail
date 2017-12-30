@@ -33,7 +33,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "postinstall": "node adminStyle.js",
-    "pretty": "prettier --single-quote --trailing-comma es5 --no-semi",
+    "pretty": "prettier --single-quote --trailing-comma es5 --no-semi --write \"{server,src}{/*,/**/*}.js\"",
     "precommit": "yarn run pretty"
   },
   "engines": {
@@ -41,6 +41,7 @@
     "npm": "5.6.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "prettier": "1.9.2"
   }
 }

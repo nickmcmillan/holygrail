@@ -9,10 +9,8 @@ import './FirstPage.css'
 class FirstPage extends Component {
   render() {
     return (
-      <div className='bold'>
-        <p>
-          First Page
-        </p>
+      <div className="bold">
+        <p>First Page</p>
         <p>{'Email: ' + this.props.user.email}</p>
         <Link to={'/second'}>Second</Link>
       </div>
@@ -21,14 +19,11 @@ class FirstPage extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
 })
 
 const mapDispatchToProps = dispatch => ({
-  userActions: bindActionCreators(userActions, dispatch)
+  userActions: bindActionCreators(userActions, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FirstPage)
+export default connect(mapStateToProps, mapDispatchToProps)(FirstPage)

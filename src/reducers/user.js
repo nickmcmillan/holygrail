@@ -1,15 +1,15 @@
 import { SET, RESET } from '../actions/user'
 
 const initialState = {
-  email: 'redux@goodness.com'
+  email: 'redux@goodness.com',
 }
 
-export default function reducer(state=initialState, action) {
+export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET:
-      return {...state, ...action.payload}
+      return { ...state, ...action.payload }
     case RESET:
-      return {...initialState}
+      return { ...initialState }
     default:
       return state
   }

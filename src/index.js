@@ -8,18 +8,16 @@ import './index.css'
 
 import App from './containers/App'
 
-
 //import Routes from './routes'
 
 // Let the reducers handle initial state
 if (window.DATA && window.DATA !== '{{data}}') {
-  window.DATA=JSON.parse(window.atob(window.DATA))
+  window.DATA = JSON.parse(window.atob(window.DATA))
 } else {
   window.DATA = {}
 }
 
-const initialState = {...window.DATA}
-
+const initialState = { ...window.DATA }
 
 const store = configureStore(initialState)
 
@@ -28,6 +26,6 @@ ReactDOM.render(
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </Provider>
-, document.getElementById('root')
+  </Provider>,
+  document.getElementById('root')
 )
