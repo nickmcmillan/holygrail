@@ -1,27 +1,22 @@
 import keystone from 'keystone'
+import path from 'path'
+import fs from 'fs'
 
-import {render, renderHead} from './serverRender'
+import render from './render' // renderHead
 import configureStore from '../src/store'
 
-const path = require('path')
-const fs = require('fs')
-
-const api = require('./api')
-
-
-module.exports = function universalLoader(req, res, next) {
+export default (req, res, next) => {
     const filePath = path.resolve(__dirname, '..', 'build', 'index.html')
-    
-    // the admin route. let it be.
-    if (req.path.includes('/keystone')) return next()
+
+    if (req.path.includes('/keystone')) return next() // the admin route. let it be.
     if (req.path.includes('.')) return next() // so like admin.css or anthing with a file extension
-    
+
     fs.readFile(filePath, 'utf8', (err, htmlData) => {
         if (err) {
             console.error('read err', err)
             return res.status(404).end()
         }
-        
+
         serverRender(req, res, htmlData)
         .catch(err => {
             console.error('Render Error', err)
@@ -32,42 +27,41 @@ module.exports = function universalLoader(req, res, next) {
 
 // this does most of the heavy lifting
 async function serverRender(req, res, htmlData) {
-    const context = {data: {}, head: [], req, api}
-    
+    const context = {data: {}, req}
+
+    // fetch all the Page data from keystone
     const contentPages = await keystone.list('Page').model.find({
         state: 'published'
-    }).populate('secondLevelPages')
-        
+    }).populate('secondLevelPages') // populate() gets the relationship data
+    // TODO: also populate author
+
     // const posts = await keystone.list('Post').model.find({
     //     state: 'published'
-    // }).populate('categories') // this gets the relationship data
-    
+    // }).populate('categories')
+
+    // plug in the keystone db response into the redux store
     let reduxStoreValues = {
         contentPages: contentPages || {},
         //posts: posts || {},
     }
-    
+
     const store = configureStore(reduxStoreValues)
-    // first
-    render(req, store, context)
-    
-    if (context.url) {
-        // Somewhere a `<Redirect>` was rendered
-        res.redirect(301, context.url)
-    }
-    
-    // handle our data fetching
-    // TODO: work out what this does??
-    const keys = Object.keys(context.data)
-    const promises = keys.map(k=>context.data[k])
-    const resolved = await Promise.all(promises)
-    resolved.forEach((r,i)=>context.data[keys[i]]=r)
-    
+    // // first
+    // render(req, store, context)
+    //
+    // if (context.url) {
+    //   console.log('!1', context.data);
+    //
+    //     // Somewhere a `<Redirect>` was rendered
+    //     res.redirect(301, context.url)
+    // }
+
     //second
     const markup = render(req, store, context)
-    const headMarkup = renderHead(context)
-    
+    //const headMarkup = renderHead(context)
+
     if (context.url) {
+      console.log('!2', context.data);
         // Somewhere a `<Redirect>` was rendered
         res.redirect(301, context.url)
     } else {
@@ -75,7 +69,7 @@ async function serverRender(req, res, htmlData) {
         const RenderedApp = htmlData
             //.replace('<meta-head/>', headMarkup)
             .replace('{{SSR}}', markup)
-            .replace('{{data}}', new Buffer(JSON.stringify(reduxStoreValues)).toString('base64'))
+            .replace('{{data}}', Buffer.from(JSON.stringify(reduxStoreValues)).toString('base64'))
         if (context.code) {
             res.status(context.code)
         }

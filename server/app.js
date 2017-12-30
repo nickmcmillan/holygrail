@@ -12,6 +12,9 @@ import fs from 'fs'
 import keystone from 'keystone'
 import mongoose from 'mongoose'
 
+import universalLoader from './universal'
+
+
 const PORT = process.env.PORT || 3000
 
 const app = express()
@@ -20,7 +23,7 @@ const app = express()
 keystone.init({
     'name': 'Admin3', // The name of the KeystoneJS application
     'brand': 'Holy grail3', // Displayed in the top left hand corner of the Admin UI
-
+    "signin logo": ["https://d30y9cdsu7xlg0.cloudfront.net/png/41786-200.png", 100, 100],
     'favicon': '../public/favicons/favicon.ico',
     'static': ['public'],
     'auto update': true,
@@ -62,7 +65,7 @@ if (process.env.HOST) {
     keystone.set('host', process.env.HOST)
 }
 
-if (process.env.PORT) {
+  if (process.env.PORT) {
     keystone.set('port', PORT)
 }
 
@@ -90,7 +93,6 @@ const api = require('./routes/api')
 app.use('/api', api)
 
 // Always return the main index.html, so react-router render the route in the client
-const universalLoader = require('./universal')
 app.use('/', universalLoader)
 
 keystone.import('./models')
