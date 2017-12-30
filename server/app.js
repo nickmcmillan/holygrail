@@ -1,15 +1,17 @@
 require('dotenv').config()
-require('ignore-styles')
-require('babel-register')({ ignore: /\/(build|node_modules)\//, presets: ['react-app'] })
+//require('babel-register')({ ignore: /\/(build|node_modules)\//, presets: ['react-app'] })
 
-const bodyParser = require('body-parser')
-const compression = require('compression')
-const express = require('express')
-const morgan = require('morgan')
-const path = require('path')
-const fs = require('fs')
-const keystone = require('keystone')
-const mongoose = require('mongoose')
+import 'ignore-styles' // tell node to be cool about when it finds css files.
+
+import bodyParser from 'body-parser'
+import compression from 'compression'
+import express from 'express'
+import morgan from 'morgan'
+import path from 'path'
+import fs from 'fs'
+import keystone from 'keystone'
+import mongoose from 'mongoose'
+
 const PORT = process.env.PORT || 3000
 
 const app = express()
@@ -25,8 +27,8 @@ keystone.init({
 
     'cors allow origin': true,
     'cors allow methods': 'GET,OPTIONS,POST',
-    'session': false, //
-    //'cookie secret': process.env.COOKIE_SECRET,
+    //'session': false, //
+    'cookie secret': process.env.COOKIE_SECRET,
     'session store': 'mongo',
     'auth': true,
     'user model': 'User', // obviously must match the name set up in the models
@@ -42,11 +44,7 @@ keystone.init({
     // },
     //'wysiwyg images': true,
     'wysiwyg cloudinary images': true,
-    'wysiwyg importcss': '/admin.css',
-    //'wysiwyg additional buttons': 'image',
-
-    // 'wysiwyg additional plugins': 'image',
-    // 'wysiwyg additional buttons': 'image',
+    'wysiwyg importcss': '/admin.css',  // make sure our server/routes allows us to get this file
 })
 
 keystone.set('cloudinary config', {

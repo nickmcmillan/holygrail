@@ -27,8 +27,8 @@
   "scripts": {
     "react": "react-scripts start",
     "start": "react-scripts build && NODE_ENV=production node --optimize_for_size --max_old_space_size=460 --gc_interval=100 server",
-    "start:server": "react-scripts build && NODE_ENV=development nodemon server",
-    "server": "NODE_ENV=development nodemon server",
+    "start:server": "react-scripts build && NODE_ENV=development nodemon --exec babel-node -- server",
+    "server": "NODE_ENV=development nodemon --exec babel-node -- server",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
@@ -37,8 +37,5 @@
   "engines": {
     "node": "9.3.0",
     "npm": "5.6.0"
-  },
-  "devDependencies": {
-    "babel-preset-env": "^1.6.1"
   }
 }
