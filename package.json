@@ -32,7 +32,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "postinstall": "node adminStyle.js",
+    "postinstall": "node ./server/adminStyle.js",
     "pretty": "prettier --single-quote --trailing-comma es5 --no-semi --write \"{server,src}{/*,/**/*}.js\"",
     "precommit": "yarn run pretty"
   },
