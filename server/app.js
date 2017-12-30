@@ -14,7 +14,7 @@ import mongoose from 'mongoose'
 
 import universalLoader from './universal'
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001
 
 const app = express()
 
@@ -27,6 +27,7 @@ keystone.init({
     100,
   ],
   favicon: '../public/favicons/favicon.ico',
+  port: PORT,
   static: ['public'],
   'auto update': true,
 

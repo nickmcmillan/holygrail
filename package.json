@@ -2,6 +2,7 @@
   "name": "holygrail3",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3001/",
   "dependencies": {
     "body-parser": "^1.16.1",
     "compression": "^1.6.2",
@@ -25,10 +26,11 @@
     "redux-logger": "^3.0.6"
   },
   "scripts": {
+    "dev": "concurrent --kill-others 'yarn react' 'yarn server'",
     "react": "react-scripts start",
-    "start": "NODE_ENV=production node --optimize_for_size --max_old_space_size=460 --gc_interval=100 server",
-    "start:server": "react-scripts build && NODE_ENV=development nodemon --exec babel-node -- server",
     "server": "NODE_ENV=development nodemon --exec babel-node -- server",
+    "start:server": "react-scripts build && yarn server",
+    "start": "NODE_ENV=production node --optimize_for_size --max_old_space_size=460 --gc_interval=100 server",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
@@ -42,6 +44,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "concurrently": "^3.5.1",
     "prettier": "1.9.2"
   }
 }

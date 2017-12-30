@@ -12,13 +12,13 @@ import App from './containers/App'
 
 // Let the reducers handle initial state
 if (window.DATA && window.DATA !== '{{data}}') {
+  // server converted it to base 64. lets unconvert it
   window.DATA = JSON.parse(window.atob(window.DATA))
 } else {
   window.DATA = {}
 }
 
 const initialState = { ...window.DATA }
-
 const store = configureStore(initialState)
 
 ReactDOM.render(
