@@ -34,8 +34,7 @@ async function serverRender(req, res, htmlData) {
     .model.find({
       state: 'published',
     })
-    .populate('secondLevelPages') // populate() gets the relationship data
-  // TODO: also populate author
+    .populate(['secondLevelPages', 'author']) // populate() gets the relationship data
 
   // const posts = await keystone.list('Post').model.find({
   //     state: 'published'

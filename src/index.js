@@ -11,14 +11,14 @@ import App from './containers/App'
 //import Routes from './routes'
 
 // Let the reducers handle initial state
-if (window.DATA && window.DATA !== '{{data}}') {
+if (window.INITIAL_STATE && window.INITIAL_STATE !== '{{data}}') {
   // server converted it to base 64. lets unconvert it
-  window.DATA = JSON.parse(window.atob(window.DATA))
+  window.INITIAL_STATE = JSON.parse(window.atob(window.INITIAL_STATE))
 } else {
-  window.DATA = {}
+  window.INITIAL_STATE = {}
 }
 
-const initialState = { ...window.DATA }
+const initialState = { ...window.INITIAL_STATE }
 const store = configureStore(initialState)
 
 ReactDOM.render(
