@@ -10,3 +10,6 @@ https://github.com/JEGardner/ssr-keystonejs-create-react-app
 - React Router v4
 - Server side rendering
 - Keystone CMS v4.0.0-beta.1 (locked because newer betas break Cloudinary wysiwyg integration)
+
+Install Mongodb
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/

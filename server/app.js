@@ -24,7 +24,7 @@ keystone.init({
   'signin logo': [
     'https://d30y9cdsu7xlg0.cloudfront.net/png/41786-200.png',
     100,
-    100,
+    100
   ],
   favicon: '../public/favicons/favicon.ico',
   port: PORT,
@@ -50,13 +50,13 @@ keystone.init({
   // },
   //'wysiwyg images': true,
   'wysiwyg cloudinary images': true,
-  'wysiwyg importcss': '/admin.css', // make sure our server/routes allows us to get this file
+  'wysiwyg importcss': '/admin.css' // make sure our server/routes allows us to get this file
 })
 
 keystone.set('cloudinary config', {
   cloud_name: process.env.CLOUDINARY_NAME,
   api_key: process.env.CLOUDINARY_KEY,
-  api_secret: process.env.CLOUDINARY_SECRET,
+  api_secret: process.env.CLOUDINARY_SECRET
 })
 
 if (process.env.MONGODB) {
@@ -85,6 +85,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // Setup logger
 app.use(morgan('combined'))
 
+// Always return the main index.html, so react-router render the route in the client
+app.use('/', universalLoader)
+
 const index = require('./routes/index')
 app.use('/', index)
 
@@ -94,18 +97,16 @@ app.use(express.static(path.resolve(__dirname, '..', 'build')))
 // const api = require('./routes/api')
 // app.use('/api', api)
 
-// Always return the main index.html, so react-router render the route in the client
-//app.use('/', universalLoader)
 
 keystone.import('./models')
 
 // Configure the navigation bar in Keystone's Admin UI
 keystone.set('nav', {
-  pages: ['pages', 'PageSecondLevel'], // adding pages to Admin UI nav
+  pages: ['pages'], // adding pages to Admin UI nav
   posts: ['posts', 'PostCategory'],
   galleries: 'galleries',
   enquiries: 'enquiries',
-  users: 'users',
+  users: 'users'
 })
 
 keystone.set('app', app)
