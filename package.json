@@ -25,17 +25,21 @@
     "redux-logger": "^3.0.6"
   },
   "scripts": {
-    "dev": "concurrently --kill-others 'yarn server' 'yarn react'",
-    "server": "NODE_ENV=development nodemon --exec babel-node -- server",
-    "react": "react-scripts start",
-    "start:server": "react-scripts build && yarn server",
+    "dev": "concurrently --kill-others 'yarn server:start' 'yarn react:start'",
     "start": "NODE_ENV=production node --optimize_for_size --max_old_space_size=460 --gc_interval=100 server",
-    "build": "react-scripts build",
+
+
+    "react:start": "react-scripts start",
+    "react:build": "react-scripts build",
+    "server:start": "NODE_ENV=development nodemon --exec babel-node -- server",
+    "server:build": "react-scripts build && yarn server",
+
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "postinstall": "node ./server/adminStyle.js",
+    "resetData": "NODE_ENV=development babel-node ./server/resetData.js",
     "pretty": "prettier --single-quote --trailing-comma es5 --no-semi --write \"{server,src}{/*,/**/*}.js\"",
-    "precommit": "yarn run pretty"
+    "precommit": "yarn pretty && yarn resetData"
   },
   "engines": {
     "node": "9.3.0",
