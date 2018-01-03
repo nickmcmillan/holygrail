@@ -6,11 +6,11 @@ import render from './render' // renderHead
 import configureStore from '../src/store'
 
 export default (req, res, next) => {
-  const filePath = path.resolve(__dirname, '..', 'build', 'index.html')
-
+  
   if (req.path.includes('/keystone')) return next() // the admin route. let it be.
   if (req.path.includes('.')) return next() // so like admin.css or anthing with a file extension
-
+  
+  const filePath = path.resolve(__dirname, '..', 'build', 'index.html')
   fs.readFile(filePath, 'utf8', (err, htmlData) => {
     if (err) {
       console.error('read err', err)
@@ -32,17 +32,36 @@ async function serverRender(req, res, htmlData) {
   const contentPages = await keystone
     .list('Page')
     .model.find({
-      state: 'published',
-    })
-    .populate(['secondLevelPages', 'author']) // populate() gets the relationship data
+      state: 'published'
+    })    
+    .populate([
+      {
+        path: 'author'
+      },
+      {
+        path: 'childPages',
+        // this is a deep populate, gets nested pages.
+        populate: {
+          model: 'Page',
+          path: 'childPages',
+          populate: {
+            model: 'Page',
+            path: 'childPages',
+          }
+        }
+        
+      }
+    ])
+    //.populate(['childPages', 'author']) // populate() gets the relationship data
 
+  
   // const posts = await keystone.list('Post').model.find({
   //     state: 'published'
   // }).populate('categories')
 
   // plug in the keystone db response into the redux store
   let reduxStoreValues = {
-    contentPages: contentPages || {},
+    contentPages: contentPages || {}
     //posts: posts || {},
   }
 

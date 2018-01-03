@@ -38,7 +38,7 @@ async function modifyHTML(res, htmlData, filePath) {
     .model.find({
       state: 'published',
     })
-    .populate(['secondLevelPages', 'author'])
+    .populate(['childPages', 'author'])
 
   let reduxStoreValues = {
     contentPages: contentPages || {},

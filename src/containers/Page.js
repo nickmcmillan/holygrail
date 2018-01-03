@@ -24,6 +24,7 @@ class Page extends Component {
   }
 
   render() {
+    //console.log(this.props)
     const currentTopLevelPage = this.props.contentPages.find(
       page => page.slug === this.props.match.params.topLevel
     )
@@ -31,7 +32,7 @@ class Page extends Component {
     // if a top level page data exists, then snoop through it for second level page data
     const currentSecondLevelPage =
       currentTopLevelPage &&
-      currentTopLevelPage.secondLevelPages.find(
+      currentTopLevelPage.childPages.find(
         page => page.slug === this.props.match.params.secondLevel
       )
 
@@ -72,11 +73,11 @@ class Page extends Component {
 
 const mapStateToProps = state => ({
   user: state.user,
-  contentPages: state.contentPages,
+  contentPages: state.contentPages
 })
 
 const mapDispatchToProps = dispatch => ({
-  userActions: bindActionCreators(userActions, dispatch),
+  userActions: bindActionCreators(userActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Page)
